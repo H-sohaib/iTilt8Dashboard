@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block addlinks %}
+{% endblock %}
+
+{% block title%} Dashboard {% endblock %}
+
+{% block style %}
+<style>
+  .tem,
+  .den {
+    padding: 75px 0;
+    width: 1fr;
+    height: 186px;
+    align-self: center;
+    text-align: center;
+  }
+
+  .tem h1 {
+    display: inline;
+  }
+</style>
+{% endblock %}
+
+{% block body %}
+
+{% with messages = get_flashed_messages(with_categories = True) %}
+{% if messages %}
+{% for categorie , msg in messages %}
+<div class="alert alert-{{categorie}} alert-dismissible  fade show m-0">
+  {{msg}}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
+{%endif%}
+{%endwith %}
+
+<div class="container mt-5 mb-5">
+  <div class="row">
+    <div class="col-md-6 col-12">
+      <!-- start comp show temper -->
+      <div class="card">
+        <div class="tem">
+          <h1>not available</h1>
+          <h1>°C</h1>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title text-center">Temperature DS18B20</h5>
+          <p class="card-text">
+          </p>
+          <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+        </div>
+      </div>
+      <!-- end comp show temper -->
+    </div>
+
+    <div class="col-md-6 col-12">
+      <!-- start comp show Density -->
+      <div class="card">
+        <div class="den">
+          <h1>not available</h1>
+          <h1></h1>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title text-center">Density</h5>
+          <p class="card-text">
+          </p>
+          <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+        </div>
+      </div>
+      <!-- end comp show Density -->
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}
+
+{% block script %}
+<script src="{{url_for('static' , filename ='script/main.js')}}"></script>
+{% endblock %}
