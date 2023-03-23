@@ -2,7 +2,5 @@
 env
 
 __pycache__/
-instance/
 
 *.code-workspace
-*.db
