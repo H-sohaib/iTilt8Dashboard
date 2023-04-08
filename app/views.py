@@ -6,17 +6,20 @@ from flask_login import login_user, current_user, logout_user, login_required
 from werkzeug.datastructures import ImmutableMultiDict
 
 data = {
-    "tem": "180",
-    "den": "50"
+    "tilt" : None ,
+    "roll" : None ,
+    "grav" : None ,
+    "abv" : None ,
+    "tem": None,
+    "intemp" : None ,
 }
-
 
 @app.route("/send")
 def send():
     global data
     # get data from the url variable
     data = request.args.to_dict(flat=True)
-
+    # print(data)
     return "done"
 
 
@@ -24,13 +27,16 @@ def send():
 @app.route("/", methods=['GET', 'POST'])
 @login_required
 def home():
+    # redirect the user if try to enter to home page in he not login 
     if not current_user.is_authenticated:
         print(current_user.is_authenticated)
         return redirect('login')
 
+# response to the POST method send by js script
     if request.method == 'POST':
         # print(data.get("tem"))
         # print(type(data.get("tem")))
+        print(data)
         return make_response(jsonify(data), 200)
     return render_template("home.html")
 

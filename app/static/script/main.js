@@ -1,11 +1,10 @@
 let reqURL = `${window.location.href}`;
-let temValue = document.querySelector(".tem > h1")
-console.log(temValue);
-let denValue = document.querySelector(".den > h1");
-console.log(denValue);
-let interval = 1000;
+let dataField = document.querySelectorAll(".data") ; 
+console.log(dataField);
+let interval = 2000;
 
 
+// send a request to the server to send back the value sended by ESP
 setInterval(() => {
   // start fitch 
   fetch(reqURL, {
@@ -17,10 +16,15 @@ setInterval(() => {
       "content-type": "application/json"
     }),
   }).then((response) => {
+  // read the data send by the server in show in the page dynamicly  
     response.json().then((data) => {
-      // 
-      temValue.innerHTML = data.tem;
-      denValue.innerHTML = data.den;
+      console.log(data);
+      dataField[0].innerHTML = data.tilt ;
+      dataField[1].innerHTML = data.roll ;
+      dataField[2].innerHTML = data.grav ;
+      dataField[3].innerHTML = data.abv ;
+      dataField[4].innerHTML = data.tem ;
+      dataField[5].innerHTML = data.intemp ;
     })
 
   }) // End Reponse 
