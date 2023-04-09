@@ -50,9 +50,9 @@ char originalgravity[6] = "1.05";
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(115200);
-
   float tilt=calcTilt(); //
   sensors.begin();  
+  connectToWiFi() ;
 }
 
 void loop() {
@@ -273,4 +273,27 @@ float calcOffset()
   }
   float offset=89.0-areading;
   return offset;
+}
+// ----------------------------------- Connect to WIFI
+void connectToWiFi(){
+  Serial.println();
+  Serial.println();
+  Serial.print("Connecting to ");
+  Serial.println(ssid);
+
+  /* Explicitly set the ESP8266 to be a WiFi-client, otherwise, it by default,
+     would try to act as both a client and an access-point and could cause
+     network-issues with your other WiFi-devices on your WiFi-network. */
+  WiFi.mode(WIFI_STA);
+  WiFi.begin(ssid, password);
+
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+
+  Serial.println("");
+  Serial.println("WiFi connected");
+  Serial.println("IP address: ");
+  Serial.println(WiFi.localIP());  
 }
